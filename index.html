@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Romance - Learn Through Love</title>
+    
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text" id="loadingText">Processing...</div>
+    </div>
+
+    <!-- Title Screen -->
+    <div class="screen active" id="titleScreen">
+        <div class="title-screen">
+            <h1 class="title-logo" id="titleLogo">Paper Romance</h1>
+            <p class="title-subtitle" id="titleSubtitle">Learn Through Love ~ 恋を通じて学ぶ</p>
+            <button class="btn btn-primary" id="startBtn" onclick="UI.showScreen('settingsScreen')">Start</button>
+            
+            <div class="privacy-notice" id="privacyNotice">
+                🔒 <strong>Your privacy matters:</strong> Your PDF is processed locally. 
+                Only the text is sent to the AI API you configure. 
+                We don't store any data.
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div class="screen" id="settingsScreen">
+        <div class="settings-container">
+            <h2 class="settings-title" id="settingsTitle">⚙️ Settings</h2>
+            
+            <div class="form-group">
+                <label class="form-label" id="languageLabel">Language</label>
+                <select class="form-select" id="languageSelect" onchange="UI.changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" id="providerLabel">AI Provider</label>
+                <select class="form-select" id="apiProvider" onchange="UI.updateApiHelp()">
+                    <option value="gemini" id="providerGemini">Google Gemini (Free)</option>
+                    <option value="deepseek" id="providerDeepseek">DeepSeek (Very cheap)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" id="apiKeyLabel">API Key</label>
+                <input type="password" class="form-input" id="apiKey" placeholder="Enter your API key">
+                <p class="api-help" id="apiHelp">
+                    Get your free key at <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="saveKey">
+                    <span id="saveKeyLabel">Save API key in this browser</span>
+                </label>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" id="settingsBackBtn" onclick="UI.showScreen('titleScreen')">Back</button>
+                <button class="btn btn-primary" id="settingsContinueBtn" onclick="UI.saveSettings()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Screen -->
+    <div class="screen" id="uploadScreen">
+        <div class="upload-container">
+            <h2 class="upload-title" id="uploadTitle">📄 Upload Your Paper</h2>
+            <p style="color: var(--text-muted)" id="uploadInstruction">Drag a PDF or click to select</p>
+            
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📚</div>
+                <p class="upload-text" id="uploadZoneText">Academic paper PDF</p>
+            </div>
+            
+            <input type="file" id="fileInput" accept=".pdf" style="display: none;" onchange="PdfService.handleFileSelect(event)">
+            
+            <div class="file-info" id="fileInfo">
+                <span id="fileName"></span>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" id="uploadBackBtn" onclick="UI.showScreen('settingsScreen')">Back</button>
+                <button class="btn btn-primary" id="uploadContinueBtn" onclick="UI.showScreen('characterScreen')" disabled>Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Character Selection -->
+    <div class="screen" id="characterScreen">
+        <div class="character-select">
+            <h2 class="character-title" id="characterTitle">💕 Choose Your Study Partner</h2>
+            <p class="character-subtitle" id="characterSubtitle">Who do you want to learn with today?</p>
+            
+            <div class="character-grid" id="characterGrid">
+                <!-- Characters will be inserted here by JS -->
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" id="characterBackBtn" onclick="UI.showScreen('uploadScreen')">Back</button>
+                <button class="btn btn-primary" id="startGameBtn" onclick="GameEngine.start()" disabled>Start!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="gameScreen">
+        <div class="game-container">
+            <div class="game-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="score-display">
+                    ❤️ <span id="scoreDisplay">0</span> / <span id="totalQuestions">0</span>
+                </div>
+            </div>
+
+            <div class="game-scene" id="gameScene" onclick="state.waitingForReactionClick ? GameEngine.handleReactionClick() : GameEngine.handleSceneClick()">
+                <div class="scene-background" id="sceneBackground"></div>
+                
+                <div class="character-display">
+                    <div class="character-sprite" id="characterSprite">
+                        <span class="sprite-emoji">🧑‍🎓</span>
+                    </div>
+                </div>
+
+                <div class="dialogue-box" id="dialogueBox">
+                    <div class="speaker-name" id="speakerName">???</div>
+                    <div class="dialogue-text" id="dialogueText"></div>
+                    <div class="continue-hint" id="continueHint">▼ Click to continue</div>
+                </div>
+
+                <div class="question-container" id="questionContainer">
+                    <div class="question-text" id="questionText"></div>
+                    <div class="answer-options" id="answerOptions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ending Screen -->
+    <div class="screen" id="endingScreen">
+        <div class="ending-container">
+            <h2 class="ending-title" id="endingTitle">The End</h2>
+            <div class="ending-character" id="endingCharacter">
+                <span class="ending-sprite-emoji">🧑‍🎓</span>
+            </div>
+            <div class="ending-message" id="endingMessage"></div>
+            
+            <div class="ending-stats">
+                <div class="stat">
+                    <div class="stat-value" id="finalScore">0</div>
+                    <div class="stat-label" id="correctAnswersLabel">Correct answers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="finalPercentage">0%</div>
+                    <div class="stat-label" id="comprehensionLabel">Comprehension</div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" id="newPaperBtn" onclick="location.reload()">New Paper</button>
+                <button class="btn btn-primary" id="anotherRouteBtn" onclick="UI.showScreen('characterScreen')">Another Route</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script src="js/state.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/characters.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/pdf.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    
+    <!-- Initialize -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            UI.init();
+        });
+    </script>
+</body>
+</html>
