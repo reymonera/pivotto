@@ -1,4 +1,4 @@
-# Paper Romance 💕📚
+# Pivotto
 
 **Learn academic papers through a dating sim experience**
 
@@ -187,3 +187,7 @@ Contributions welcome! Ideas for improvement:
 ---
 
 Made with 💕 to make learning more fun.
+
+## Name inspo
+
+I've been developing this while listening to EZFG's Pipivovotto, that make's a reference to the pivoting move (I think so, these songs are always so esoteric). And I've been wanting something like sounds like ´Piapro´ since that's a completely respectable name.
