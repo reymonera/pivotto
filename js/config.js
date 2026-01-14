@@ -33,7 +33,7 @@ const CONFIG = {
 const TRANSLATIONS = {
     en: {
         // Title screen
-        title: 'Paper Romance',
+        title: 'Pivotto',
         subtitle: 'Learn Through Love ~ 恋を通じて学ぶ',
         startButton: 'Start',
         privacyNotice: 'Your privacy matters: Your PDF is processed locally. Only the text is sent to the AI API you configure. We don\'t store any data.',
@@ -89,7 +89,7 @@ const TRANSLATIONS = {
     
     es: {
         // Title screen
-        title: 'Paper Romance',
+        title: 'Pivotto',
         subtitle: 'Aprende a través del amor ~ 恋を通じて学ぶ',
         startButton: 'Comenzar',
         privacyNotice: 'Tu privacidad importa: Tu PDF se procesa localmente. Solo el texto se envía a la API de IA que configures. No guardamos ningún dato.',
