@@ -6,7 +6,7 @@ An open-source web app that transforms academic papers (PDFs) into interactive v
 
 ## ✨ Features
 
-- **Upload any PDF** - Text is extracted locally in your browser
+- **Upload any PDF** - Text is extracted
 - **5 unique characters** - Each with different personality and context
 - **Comprehension questions** - Your answers affect the story ending
 - **3 possible endings** - Good, neutral, or bad based on your score
@@ -57,7 +57,7 @@ MIT License - Use, modify, and distribute freely.
 
 ---
 
-Made with love, RedBull and vibe-coding, btw, I'm not going to pretend I'm a super web developer. Most of the project has been written by Claude's Opus 4.5, and probably is stagnant at this stage. since AI tends to give you exactly what you ask for, which means that this doesn't scale up. That being said, I like the idea and I'm glad I could see something. If more people like it, I might see what this can become. For now, I'll concentrate on creating characters with Vocaloid references and try to comission some art for them. Please, wait.
+Made with love, RedBull and vibe-coding, btw, I'm not going to pretend I'm a super web developer. Most of the project has been written by Claude's Opus 4.5, and probably is stagnant at this stage, since AI tends to give you exactly what you ask for, which means that this doesn't scale up. That being said, I like the idea and I'm glad I could see something. If more people like it, I might see what this can become. For now, I'll concentrate on creating characters with Vocaloid references and try to comission some art for them. Please, wait.
 
 ## Name inspo
 
