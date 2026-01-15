@@ -26,36 +26,6 @@ const UI = {
         document.getElementById('loadingOverlay').classList.remove('active');
     },
     
-    // Update API help text based on provider
-    updateApiHelp() {
-        const provider = document.getElementById('apiProvider').value;
-        const helpText = document.getElementById('apiHelp');
-        
-        if (provider === 'gemini') {
-            helpText.innerHTML = t('apiHelpGemini');
-        } else {
-            helpText.innerHTML = t('apiHelpDeepseek');
-        }
-    },
-    
-    // Save settings and continue
-    saveSettings() {
-        state.apiProvider = document.getElementById('apiProvider').value;
-        state.apiKey = document.getElementById('apiKey').value;
-        
-        if (!state.apiKey) {
-            alert(t('errorApiKey'));
-            return;
-        }
-        
-        if (document.getElementById('saveKey').checked) {
-            localStorage.setItem('paperRomance_apiKey', state.apiKey);
-            localStorage.setItem('paperRomance_apiProvider', state.apiProvider);
-        }
-        
-        this.showScreen('uploadScreen');
-    },
-    
     // Render character selection grid
     renderCharacterGrid() {
         const grid = document.getElementById('characterGrid');
@@ -100,7 +70,7 @@ const UI = {
     // Change language
     changeLanguage(lang) {
         state.language = lang;
-        localStorage.setItem('paperRomance_language', lang);
+        localStorage.setItem('pivotto_language', lang);
         this.updateAllText();
     },
     
@@ -110,20 +80,6 @@ const UI = {
         document.getElementById('titleLogo').textContent = t('title');
         document.getElementById('titleSubtitle').textContent = t('subtitle');
         document.getElementById('startBtn').textContent = t('startButton');
-        document.getElementById('privacyNotice').innerHTML = '🔒 <strong>' + t('privacyNotice').split(':')[0] + ':</strong>' + t('privacyNotice').split(':').slice(1).join(':');
-        
-        // Settings screen
-        document.getElementById('settingsTitle').textContent = t('settingsTitle');
-        document.getElementById('providerLabel').textContent = t('providerLabel');
-        document.getElementById('providerGemini').textContent = t('providerGemini');
-        document.getElementById('providerDeepseek').textContent = t('providerDeepseek');
-        document.getElementById('apiKeyLabel').textContent = t('apiKeyLabel');
-        document.getElementById('apiKey').placeholder = t('apiKeyPlaceholder');
-        document.getElementById('saveKeyLabel').textContent = t('saveKeyLabel');
-        document.getElementById('settingsBackBtn').textContent = t('backButton');
-        document.getElementById('settingsContinueBtn').textContent = t('continueButton');
-        document.getElementById('languageLabel').textContent = t('languageLabel');
-        this.updateApiHelp();
         
         // Upload screen
         document.getElementById('uploadTitle').textContent = t('uploadTitle');
@@ -131,6 +87,7 @@ const UI = {
         document.getElementById('uploadZoneText').textContent = t('uploadZoneText');
         document.getElementById('uploadBackBtn').textContent = t('backButton');
         document.getElementById('uploadContinueBtn').textContent = t('continueButton');
+        document.getElementById('languageLabel').textContent = t('languageLabel');
         
         // Character screen
         document.getElementById('characterTitle').textContent = t('characterTitle');
@@ -146,18 +103,9 @@ const UI = {
     
     // Initialize UI
     init() {
-        // Load saved settings
-        const savedKey = localStorage.getItem('paperRomance_apiKey');
-        const savedProvider = localStorage.getItem('paperRomance_apiProvider');
-        const savedLanguage = localStorage.getItem('paperRomance_language');
+        // Load saved language
+        const savedLanguage = localStorage.getItem('pivotto_language');
         
-        if (savedKey) {
-            document.getElementById('apiKey').value = savedKey;
-            document.getElementById('saveKey').checked = true;
-        }
-        if (savedProvider) {
-            document.getElementById('apiProvider').value = savedProvider;
-        }
         if (savedLanguage) {
             state.language = savedLanguage;
             document.getElementById('languageSelect').value = savedLanguage;
@@ -167,7 +115,6 @@ const UI = {
         
         // Update all text
         this.updateAllText();
-        this.updateApiHelp();
         
         // Set up PDF.js worker
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';

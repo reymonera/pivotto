@@ -58,6 +58,7 @@ const GameEngine = {
         const element = document.getElementById('dialogueText');
         element.innerHTML = '';
         state.isTyping = true;
+        state.currentTypingText = text; // Store current text for skip function
         
         let index = 0;
         const cursor = '<span class="typing-cursor"></span>';
@@ -80,9 +81,8 @@ const GameEngine = {
     skipTyping() {
         if (state.isTyping) {
             clearTimeout(state.typingTimeout);
-            const dialogue = state.gameData.dialogues[state.currentDialogueIndex];
-            if (dialogue && dialogue.text) {
-                document.getElementById('dialogueText').innerHTML = dialogue.text;
+            if (state.currentTypingText) {
+                document.getElementById('dialogueText').innerHTML = state.currentTypingText;
             }
             state.isTyping = false;
         }
@@ -241,6 +241,14 @@ const GameEngine = {
             document.getElementById('scoreDisplay').textContent = '0';
             document.getElementById('speakerName').textContent = char.name;
             document.getElementById('continueHint').textContent = t('continueHint');
+            
+            // Set background image
+            const bgElement = document.getElementById('sceneBackground');
+            if (char.background) {
+                bgElement.style.backgroundImage = `url('${char.background}')`;
+            } else {
+                bgElement.style.backgroundImage = 'none';
+            }
             
             // Initialize character sprite
             this.updateCharacterSprite(char, 'normal');

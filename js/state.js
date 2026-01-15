@@ -22,5 +22,6 @@ const state = {
     // UI state
     isTyping: false,
     typingTimeout: null,
+    currentTypingText: '', // Text currently being typed
     waitingForReactionClick: false
 };

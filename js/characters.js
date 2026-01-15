@@ -15,6 +15,8 @@ const CHARACTERS = [
             en: 'You got paired with him for a group project. He pretends not to care, but...',
             es: 'Te toca hacer grupo con él. Finge que no le importa, pero...'
         },
+        // Background for this character's story
+        background: 'assets/backgrounds/library.png',
         // Fallback emoji if no image is found
         fallbackEmoji: '😎',
         // Image paths - replace with your own assets
@@ -60,6 +62,7 @@ const CHARACTERS = [
             en: 'He asked for your help with an important presentation.',
             es: 'Te pidió ayuda con una presentación importante.'
         },
+        background: 'assets/backgrounds/classroom.png',
         fallbackEmoji: '🤵',
         images: {
             normal: 'assets/characters/president/normal.png',
@@ -101,6 +104,7 @@ const CHARACTERS = [
             en: 'You found him studying alone. You sat with him.',
             es: 'Lo encontraste estudiando solo. Te sentaste con él.'
         },
+        background: 'assets/backgrounds/library.png',
         fallbackEmoji: '🥺',
         images: {
             normal: 'assets/characters/shy/normal.png',
@@ -142,6 +146,7 @@ const CHARACTERS = [
             en: 'You were assigned a tutor because you need help.',
             es: 'Te asignaron un tutor porque necesitas ayuda.'
         },
+        background: 'assets/backgrounds/cafe.png',
         fallbackEmoji: '😇',
         images: {
             normal: 'assets/characters/tutor/normal.png',
@@ -183,6 +188,7 @@ const CHARACTERS = [
             en: 'You compete for the best grade. Every question is a duel.',
             es: 'Compiten por la mejor nota. Cada pregunta es un duelo.'
         },
+        background: 'assets/backgrounds/cafe.png',
         fallbackEmoji: '😼',
         images: {
             normal: 'assets/characters/rival/normal.png',

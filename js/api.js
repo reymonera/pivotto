@@ -4,65 +4,23 @@
 
 const ApiService = {
     
-    async callGemini(prompt, apiKey) {
-        const response = await fetch(`${CONFIG.api.gemini.baseUrl}?key=${apiKey}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: prompt }]
-                }],
-                generationConfig: {
-                    temperature: 0.8,
-                    topP: 0.95,
-                    maxOutputTokens: 8192,
-                }
-            })
-        });
-        
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error?.message || 'Gemini API Error');
-        }
-        
-        const data = await response.json();
-        return data.candidates[0].content.parts[0].text;
-    },
-    
-    async callDeepSeek(prompt, apiKey) {
-        const response = await fetch(CONFIG.api.deepseek.baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-                model: 'deepseek-chat',
-                messages: [
-                    { role: 'user', content: prompt }
-                ],
-                temperature: 0.8,
-                max_tokens: 8192
-            })
-        });
-        
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error?.message || 'DeepSeek API Error');
-        }
-        
-        const data = await response.json();
-        return data.choices[0].message.content;
-    },
-    
+    // Call our backend API (which securely calls DeepSeek)
     async call(prompt) {
-        if (state.apiProvider === 'gemini') {
-            return this.callGemini(prompt, state.apiKey);
-        } else {
-            return this.callDeepSeek(prompt, state.apiKey);
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt })
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'API Error');
         }
+        
+        const data = await response.json();
+        return data.content;
     },
     
     buildPrompt(character, pdfText, language) {
@@ -115,16 +73,16 @@ RESPONSE FORMAT (strict JSON):
     }
   ],
   "endings": {
-    "good": "Good ending message (3-4 correct). Romantic/warm.",
-    "neutral": "Neutral ending message (2 correct). Friendly but distant.",
-    "bad": "Bad ending message (0-1 correct). Disappointed but gives hope."
+    "good": "Good ending message (6-8 correct). Romantic/warm.",
+    "neutral": "Neutral ending message (4-5 correct). Friendly but distant.",
+    "bad": "Bad ending message (0-3 correct). Disappointed but gives hope."
   }
 }
 
 IMPORTANT:
 - The story should flow naturally, alternating explanation with character moments
 - Questions should be distributed throughout the explanation
-- Include 15-25 dialogues total (including the ${CONFIG.game.questionsPerGame} questions)
+- Include 20-35 dialogues total (including the ${CONFIG.game.questionsPerGame} questions)
 - Keep your personality consistent
 - Romantic content should be subtle and appropriate
 - Respond ONLY with the JSON, no additional text`;

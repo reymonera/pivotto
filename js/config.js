@@ -3,6 +3,9 @@
 // ============================================
 
 const CONFIG = {
+    // App name
+    appName: 'Pivotto',
+    
     // Default language: 'en' or 'es'
     defaultLanguage: 'en',
     
@@ -21,7 +24,7 @@ const CONFIG = {
     // Game settings
     game: {
         typingSpeed: 30, // ms per character
-        questionsPerGame: 4,
+        questionsPerGame: 8,
         maxPdfLength: 15000 // characters to send to API
     }
 };
@@ -148,4 +151,9 @@ const TRANSLATIONS = {
 function t(key) {
     const lang = state.language || CONFIG.defaultLanguage;
     return TRANSLATIONS[lang][key] || TRANSLATIONS['en'][key] || key;
+}
+
+// Get app name
+function getAppName() {
+    return CONFIG.appName || 'Pivotto';
 }
