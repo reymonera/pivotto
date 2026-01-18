@@ -62,7 +62,7 @@ const CHARACTERS = [
             en: 'He asked for your help with an important presentation.',
             es: 'Te pidió ayuda con una presentación importante.'
         },
-        background: 'assets/backgrounds/classroom.png',
+        background: 'assets/backgrounds/student-council.png',
         fallbackEmoji: '🤵',
         images: {
             normal: 'assets/characters/president/normal.png',
@@ -84,10 +84,10 @@ const CHARACTERS = [
             Tienes un lado más cálido que muestras ocasionalmente.`
         },
         context: {
-            en: `You're in the student council room. Kenji needs to prepare an important presentation
+            en: `You're in the student council room. T/N needs to prepare an important presentation
             and asked specifically for your help because he trusts your judgment.
             "Thank you for coming. I've heard good things about you. Would you help me understand this material?"`,
-            es: `Están en la sala del consejo estudiantil. Kenji necesita preparar una presentación importante
+            es: `Están en la sala del consejo estudiantil. T/N necesita preparar una presentación importante
             y te pidió ayuda específicamente porque confía en tu criterio.
             "Gracias por venir. He escuchado buenas cosas de ti. ¿Me ayudarías a entender este material?"`
         }
@@ -126,10 +126,10 @@ const CHARACTERS = [
             Cuando falla, te preocupas y quieres ayudar más.`
         },
         context: {
-            en: `You're in a quiet corner of the library. You found Haru studying alone and
+            en: `You're in a quiet corner of the library. You found Y/N studying alone and
             sat next to him. He was surprised but didn't ask you to leave.
             "Oh... um... d-do you want to study together? I-I was reading this and... it's very interesting..."`,
-            es: `Están en un rincón tranquilo de la biblioteca. Encontraste a Haru estudiando solo y
+            es: `Están en un rincón tranquilo de la biblioteca. Encontraste a Y/N estudiando solo y
             te sentaste a su lado. Él se sorprendió pero no te pidió que te fueras.
             "Oh... um... ¿q-quieres estudiar juntos? Y-yo estaba leyendo esto y... es muy interesante..."`
         }
@@ -168,12 +168,12 @@ const CHARACTERS = [
             Tienes una sonrisa que hace que estudiar sea agradable.`
         },
         context: {
-            en: `You're in an empty classroom after school. Sora was assigned as your tutor because
+            en: `You're in an empty classroom after school. iroha(sasaki) was assigned as your tutor because
             your grades need improvement. But he doesn't make you feel bad about it.
-            "Hello! I'm Sora, your tutor. Don't worry, we'll learn together. Shall we start?"`,
-            es: `Están en un aula vacía después de clases. Sora fue asignado como tu tutor porque
+            "Hello! I'm iroha(sasaki), your tutor. Don't worry, we'll learn together. Shall we start?"`,
+            es: `Están en un aula vacía después de clases. iroha(sasaki) fue asignado como tu tutor porque
             tus notas necesitan mejorar. Pero él no te hace sentir mal por eso.
-            "¡Hola! Soy Sora, tu tutor. No te preocupes, vamos a aprender juntos. ¿Empezamos?"`
+            "¡Hola! Soy iroha(sasaki), tu tutor. No te preocupes, vamos a aprender juntos. ¿Empezamos?"`
         }
     },
     {
